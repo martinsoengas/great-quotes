@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import {
   useHistory,
   useLocation,
+  useRouteMatch,
 } from "react-router-dom/cjs/react-router-dom.min";
 
 import QuoteItem from "./QuoteItem";
@@ -20,6 +21,7 @@ const sortQuotes = (quotes, ascending) => {
 const QuoteList = (props) => {
   const history = useHistory();
   const location = useLocation();
+  const match = useRouteMatch();
 
   const queryParams = new URLSearchParams(location.search);
 
@@ -28,7 +30,10 @@ const QuoteList = (props) => {
   const sortedQuotes = sortQuotes(props.quotes, isSortingAscending);
 
   const changeSortingHandler = () => {
-    history.push("/quotes?sort=" + (isSortingAscending ? "desc" : "asc"));
+    history.push({
+      pathname: match.url,
+      search: `?sort=${isSortingAscending ? "desc" : "asc"}`,
+    });
   };
 
   return (
