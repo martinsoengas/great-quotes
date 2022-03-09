@@ -67,7 +67,6 @@ export async function addComment(requestData) {
     }
   );
   const data = await response.json();
-  console.log(data);
 
   if (!response.ok) {
     throw new Error(data.message || "Could not add comment.");
